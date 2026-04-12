@@ -16,4 +16,7 @@ This project is a web-based system to report and manage waste issues efficiently
 
 ## Team
 - Mehnaz
-- Team Members
+- yashawini m
+- yashwini m
+- rachana
+
