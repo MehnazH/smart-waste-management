@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Reporter</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-area">
+                <div class="logo-icon">🗑️♻️</div>
+                <h1>Smart Waste <span>Reporter</span></h1>
+            </div>
+            <div class="subhead">📍 Report · Track · Clean</div>
+        </header>
+
+        <!-- Report Form Card -->
+        <section class="card">
+            <h2>📋 Report waste issue</h2>
+            <form id="reportForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>📍 Location *</label>
+                        <input type="text" id="location" placeholder="e.g. 42 Park Ave, near bench" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🗑️ Waste type *</label>
+                        <select id="wasteType" required>
+                            <option value="">-- Select --</option>
+                            <option value="Overflowing bin">Overflowing bin</option>
+                            <option value="Illegal dumping">Illegal dumping</option>
+                            <option value="Litter">Litter</option>
+                            <option value="Hazardous">Hazardous waste</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>📝 Description (optional)</label>
+                        <textarea id="description" rows="2" placeholder="Additional details ..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>🖼️ Image URL (optional)</label>
+                        <input type="url" id="imageUrl" placeholder="https://... (direct image link)">
+                    </div>
+                </div>
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <span>🚀</span> Submit report
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Management Dashboard -->
+        <section>
+            <div class="dash-header">
+                <h2 style="margin-bottom: 0;">📊 Waste reports dashboard</h2>
+                <button class="btn btn-outline" id="refreshBtn" title="Refresh list">🔄 Refresh</button>
+            </div>
+            <div id="reportsContainer" class="reports-grid">
+                <div class="loading">Loading reports from storage...</div>
+            </div>
+            <div id="emptyState" class="empty-msg" style="display: none;">✨ No reports yet. Submit the first one!</div>
+        </section>
+
+        <footer>
+            ⚡ Smart Waste Management · frontend demo (localStorage)
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
