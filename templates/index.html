@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Reporter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="app">
+
+    <header class="header">
+        <div class="logo-area">
+            <div class="logo-icon">🗑️♻️</div>
+            <h1>Smart Waste Reporter</h1>
+        </div>
+        <div class="subhead">Report · Track · Clean</div>
+    </header>
+
+    <section class="card">
+        <h2>Report Waste Issue</h2>
+
+        <form action="/add" method="POST" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" required>
+            </div>
+
+            <div class="form-group">
+                <label>Waste Type</label>
+                <select name="wasteType" required>
+                    <option value="">Select</option>
+                    <option>Overflowing bin</option>
+                    <option>Illegal dumping</option>
+                    <option>Litter</option>
+                    <option>Hazardous</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Upload Image</label>
+                <input type="file" name="image">
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Submit Report
+            </button>
+
+        </form>
+    </section>
+
+    <section>
+        <h2>Waste Reports Dashboard</h2>
+
+        <div class="reports-grid">
+
+            {% if reports %}
+
+                {% for report in reports %}
+                <div class="report-card">
+
+                    <div class="card-top">
+                        <span class="waste-badge">{{ report.waste_type }}</span>
+                        <span class="status">{{ report.status }}</span>
+                    </div>
+
+                    <div class="loc">
+                        📍 {{ report.location }}
+                    </div>
+
+                    {% if report.description %}
+                    <div class="desc-box">
+                        {{ report.description }}
+                    </div>
+                    {% endif %}
+
+                    {% if report.image %}
+                    <div class="image-thumb">
+                        <img src="{{ url_for('uploaded_file', filename=report.image) }}">
+                    </div>
+                    {% endif %}
+
+                    <div class="action-bar">
+
+                        <form action="/update/{{ report.id }}" method="POST">
+                            <select name="status" class="status-select">
+                                <option value="Reported">Reported</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                            </select>
+
+                            <button type="submit" class="btn btn-small">
+                                Update
+                            </button>
+                        </form>
+
+                        <a href="/delete/{{ report.id }}">
+                            <button class="btn btn-small btn-danger" type="button">
+                                Delete
+                            </button>
+                        </a>
+
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            {% else %}
+                <div class="empty-msg">
+                    No reports yet. Submit the first one.
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
